@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import NoteCard from "./NoteCard";
+import uuid from "uuid";
 
 class AddNotes extends Component {
   state = {
@@ -8,16 +9,33 @@ class AddNotes extends Component {
     notes: []
   };
 
+  deletenoteCard = id => {
+    var filteredItems = this.state.notes.filter(function(note) {
+      return note.id !== id;
+    });
+
+    this.setState({
+      notes: filteredItems
+    });
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     this.setState({
       notes: [
         ...this.state.notes, //have state thats already there
         {
+          id: uuid.v4(),
           title: this.state.title,
           content: this.state.content
         }
       ]
+    });
+
+    //clear the inputs after submitting
+    this.setState({
+      title: "",
+      content: ""
     });
   };
 
@@ -29,25 +47,32 @@ class AddNotes extends Component {
 
   render() {
     return (
-      <div>
+      <div className="AddForm">
         <form onSubmit={this.handleSubmit}>
-          <input
-            type="text"
-            placeholder="Add Title"
-            name="title"
-            value={this.state.title}
-            onChange={this.handleChange}
-          />
-          <textarea
-            type="text"
-            placeholder="Add Notes"
-            name="content"
-            value={this.state.content}
-            onChange={this.handleChange}
-          />
+          <div>
+            <input
+              type="text"
+              placeholder="Add Title"
+              name="title"
+              value={this.state.title}
+              onChange={this.handleChange}
+            />
+          </div>
+
+          <div>
+            <textarea
+              rows="10"
+              type="text"
+              placeholder="Add Note"
+              name="content"
+              value={this.state.content}
+              onChange={this.handleChange}
+            />
+          </div>
+
           <input type="submit" value="ADD" />
         </form>
-        <NoteCard notes={this.state.notes} />
+        <NoteCard notes={this.state.notes} delete={this.deletenoteCard} />
       </div>
     );
   }
