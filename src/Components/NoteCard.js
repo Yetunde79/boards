@@ -9,12 +9,15 @@ class NoteCard extends Component {
     const { notes } = this.props;
     return (
       <div className="NoteCard">
+        {/*make draggable*/}
         {notes.map(note => (
-          <div key={note.id}>
-            <h1>{note.title}</h1>
+          <div className="card" key={note.id}>
+            <h1 className="cardTitle">{note.title}</h1>{" "}
+            {/*Limit num of characters allowed for title*/}
             <p>{note.content}</p>
-            <button onClick={() => this.delete(note.id)}>X</button>{" "}
-            {/*didnt work without arrow func, why?*/}
+            <span id="delete" onClick={() => this.delete(note.id)}>
+              <i class="far fa-trash-alt" />
+            </span>{" "}
           </div>
         ))}
       </div>
