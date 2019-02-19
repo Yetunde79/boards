@@ -3,7 +3,7 @@
   padding-bottom: 10%;
 }
 
-.AddForm input[type="text"],
+input[type="text"],
 textarea {
   width: 80%;
   padding: 5px 20px;
@@ -11,7 +11,7 @@ textarea {
   box-sizing: border-box;
 }
 
-.AddForm input[type="submit"] {
+input[type="submit"] {
   border: 0;
   background-color: purple;
   color: white;
@@ -34,6 +34,10 @@ textarea {
   padding-bottom: 5%;
 }
 
+.card-body {
+  padding: 5%;
+}
+
 .cardTitle {
   overflow-y: hidden;
 }
@@ -45,6 +49,14 @@ textarea {
 
 #delete {
   cursor: pointer;
-  position: absolute;
-  left: 5px;
+  float: left;
+}
+
+#edit {
+  color: black;
+  float: right;
+}
+
+#edit:hover {
+  color: black;
 }

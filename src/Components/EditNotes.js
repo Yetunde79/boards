@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import NoteCard from "./NoteCard";
+import "../App.css";
 
-class AddNotes extends Component {
+class EditNotes extends Component {
   state = {
     title: "",
     content: ""
@@ -9,14 +9,23 @@ class AddNotes extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.addNote(this.state.title, this.state.content);
 
-    //clear the inputs after submitting
-    this.setState({
-      title: "",
-      content: ""
-    });
+    // const note = this.props.notes.filter(
+    //   ({ id }) => id === this.props.match.params.id
+    // )[0];
+
+    this.props.editNote(this.state.title, this.state.content);
+
+    this.props.history.push("/"); //redirect to homepage
   };
+
+  componentDidMount() {
+    const note = this.props.notes.filter(
+      ({ id }) => id === this.props.match.params.id
+    )[0];
+
+    this.setState({ title: note.title, content: note.content });
+  }
 
   handleChange = e => {
     this.setState({
@@ -25,8 +34,11 @@ class AddNotes extends Component {
   };
 
   render() {
+    console.log(this.props);
     return (
-      <div className="AddForm">
+      <div className="EditForm">
+        <h1>Editing Notes</h1>
+
         <form onSubmit={this.handleSubmit}>
           <div>
             <input
@@ -49,13 +61,11 @@ class AddNotes extends Component {
             />
           </div>
 
-          <input type="submit" value="ADD" />
+          <input type="submit" value="EDIT" />
         </form>
-
-        <NoteCard notes={this.props.notes} delete={this.props.deletenoteCard} />
       </div>
     );
   }
 }
 
-export default AddNotes;
+export default EditNotes;
