@@ -11,11 +11,15 @@ class App extends Component {
     notes: []
   };
 
-  // componentDidMount() {
-  //   const notes = localStorage.getItem("notes");
-  //   this.setState({ notes });
-  //   console.log(notes);
-  // }
+  componentDidMount() {
+    let notes = [];
+    try {
+      notes = JSON.parse(localStorage.getItem("notes"));
+    } catch (e) {
+      console.error(e);
+    }
+    this.setState({ notes });
+  }
 
   addNote = (title, content) => {
     let newNotes = [
@@ -30,7 +34,7 @@ class App extends Component {
       notes: newNotes
     });
 
-    // localStorage.setItem("notes", newNotes);
+    localStorage.setItem("notes", JSON.stringify(newNotes));
   };
 
   editNote = (title, content) => {
@@ -41,6 +45,8 @@ class App extends Component {
     this.setState({
       notes: [...this.state.notes, updatedNotes]
     });
+
+    //localStorage.setItem("notes", JSON.stringify(updatedNotes));
   };
 
   deletenoteCard = id => {
@@ -51,6 +57,8 @@ class App extends Component {
     this.setState({
       notes: filteredItems
     });
+
+    localStorage.setItem("notes", JSON.stringify(filteredItems));
   };
 
   render() {
