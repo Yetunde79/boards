@@ -8,13 +8,14 @@ class EditNotes extends Component {
   };
 
   handleSubmit = e => {
+    const { id } = this.props.notes;
     e.preventDefault();
 
     // const note = this.props.notes.filter(
     //   ({ id }) => id === this.props.match.params.id
     // )[0];
 
-    this.props.editNote(this.state.title, this.state.content);
+    this.props.editNote(id, this.state.title, this.state.content);
 
     this.props.history.push("/"); //redirect to homepage
   };
