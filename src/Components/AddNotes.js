@@ -4,7 +4,8 @@ import NoteCard from "./NoteCard";
 class AddNotes extends Component {
   state = {
     title: "",
-    content: ""
+    content: "",
+    error: false
   };
 
   handleSubmit = e => {
@@ -14,14 +15,25 @@ class AddNotes extends Component {
     //clear the inputs after submitting
     this.setState({
       title: "",
-      content: ""
+      content: "",
+      error: false
     });
+  };
+
+  limitText = title => {
+    let maxlength = title.maxLength;
+
+    if (title.value.length >= maxlength && title.name === "title") {
+      this.setState({ error: true });
+    }
   };
 
   handleChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
+
+    this.limitText(e.target);
   };
 
   render() {
@@ -35,8 +47,13 @@ class AddNotes extends Component {
               name="title"
               value={this.state.title}
               onChange={this.handleChange}
+              maxLength="30"
             />
           </div>
+
+          <small id="error">
+            {this.state.error ? "Max characters reached" : null}
+          </small>
 
           <div>
             <textarea

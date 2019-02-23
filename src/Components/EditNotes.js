@@ -8,12 +8,8 @@ class EditNotes extends Component {
   };
 
   handleSubmit = e => {
-    const { id } = this.props.notes;
+    const { id } = this.props.match.params;
     e.preventDefault();
-
-    // const note = this.props.notes.filter(
-    //   ({ id }) => id === this.props.match.params.id
-    // )[0];
 
     this.props.editNote(id, this.state.title, this.state.content);
 
@@ -35,10 +31,10 @@ class EditNotes extends Component {
   };
 
   render() {
-    console.log(this.props);
+    let { notes } = this.props;
     return (
       <div className="EditForm">
-        <h1>Editing Notes</h1>
+        <h1>Editing "{this.state.title}" </h1>
 
         <form onSubmit={this.handleSubmit}>
           <div>
@@ -48,6 +44,7 @@ class EditNotes extends Component {
               name="title"
               value={this.state.title}
               onChange={this.handleChange}
+              maxlength="30"
             />
           </div>
 

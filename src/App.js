@@ -37,16 +37,28 @@ class App extends Component {
     localStorage.setItem("notes", JSON.stringify(newNotes));
   };
 
-  editNote = (title, content) => {
+  editNote = (id, title, content) => {
     const updatedNotes = {
+      id: id,
       title: title,
       content: content
     };
-    this.setState({
-      notes: [...this.state.notes, updatedNotes]
+
+    let { notes } = this.state;
+    let editedNotes = [];
+
+    notes.forEach(note => {
+      if (note.id === id) {
+        note = updatedNotes;
+      }
+      editedNotes.push(note);
     });
 
-    //localStorage.setItem("notes", JSON.stringify(updatedNotes));
+    this.setState({
+      notes: editedNotes
+    });
+
+    localStorage.setItem("notes", JSON.stringify(editedNotes));
   };
 
   deletenoteCard = id => {

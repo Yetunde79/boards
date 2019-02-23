@@ -21,6 +21,10 @@ input[type="submit"] {
   border-radius: 12px;
 }
 
+#error {
+  color: red;
+}
+
 .NoteCard {
   padding: 10%;
   display: grid;
@@ -36,13 +40,11 @@ input[type="submit"] {
 
 .card-body {
   padding: 5%;
+  overflow-x: hidden;
 }
 
 .cardTitle {
   overflow-y: hidden;
-}
-
-.NoteCard h1 {
   background-color: blueviolet;
   margin: 0;
 }
