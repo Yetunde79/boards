@@ -31,7 +31,7 @@ class EditNotes extends Component {
   };
 
   render() {
-    let { notes } = this.props;
+
     return (
       <div className="EditForm">
         <h1>Editing "{this.state.title}" </h1>
