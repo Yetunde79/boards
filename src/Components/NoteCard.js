@@ -9,10 +9,11 @@ class NoteCard extends Component {
 
   render() {
     const { notes } = this.props;
+    
     return (
       <div className="NoteCard">
         {/*make draggable*/}
-        {notes.map(note => (
+        {notes ? (notes.map(note => (
           <div className="card" key={note.id}>
             <h1 className="cardTitle">{note.title}</h1>{" "}
             <div className="card-body">
@@ -25,7 +26,9 @@ class NoteCard extends Component {
               </Link>
             </div>
           </div>
-        ))}
+        ))
+        ): null
+      }
       </div>
     );
   }
