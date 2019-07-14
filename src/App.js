@@ -22,19 +22,19 @@ class App extends Component {
   }
 
   addNote = (title, content) => {
-    let newNotes = [
-      ...this.state.notes, //have state thats already there
-      {
-        id: uuid.v4(),
-        title: title,
-        content: content
-      }
-    ];
-    this.setState({
-      notes: newNotes
-    });
+    let newNotes = {
+      id: uuid.v4(),
+      title: title,
+      content: content
+    };
 
-    localStorage.setItem("notes", JSON.stringify(newNotes));
+    this.setState({
+      notes: [newNotes, ...this.state.notes] //have state thats already there
+    });
+    localStorage.setItem(
+      "notes",
+      JSON.stringify([newNotes, ...this.state.notes])
+    );
   };
 
   editNote = (id, title, content) => {
