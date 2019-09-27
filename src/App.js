@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Board from "./Components/Board";
 import EditNotes from "./Components/EditNotes";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-
 import "./App.css";
 import uuid from "uuid";
 
@@ -15,10 +14,17 @@ class App extends Component {
     let notes = [];
     try {
       notes = JSON.parse(localStorage.getItem("notes"));
+      if (!Array.isArray(notes)) {
+        notes = [];
+      }
     } catch (e) {
       console.error(e);
     }
     this.setState({ notes });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    localStorage.setItem("notes", JSON.stringify(this.state.notes));
   }
 
   addNote = (title, content) => {
@@ -31,10 +37,6 @@ class App extends Component {
     this.setState({
       notes: [newNotes, ...this.state.notes] //have state thats already there
     });
-    localStorage.setItem(
-      "notes",
-      JSON.stringify([newNotes, ...this.state.notes])
-    );
   };
 
   editNote = (id, title, content) => {
